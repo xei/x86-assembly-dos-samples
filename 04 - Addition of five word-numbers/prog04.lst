@@ -1,0 +1,81 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/14/11 00:37:01
+Addition of 5 word-numbers				     Page 1 - 1
+
+
+				; Program 01 - Addition of five word-numbers
+				; Written by Hamidreza Hosseinkhani (hosseinkhani@live.com)
+				; June, 2011
+						TITLE Addition of 5 word-numbers
+
+ 0000				StkSeg	SEGMENT para stack 'stack'
+ 0000  0040 [					DB 64 DUP (?)
+        00
+       ]
+ 0040				StkSeg	ENDS
+
+ 0000				DtaSeg	SEGMENT para private 'data'
+ 0000 1020 2030 3040 4050	Nums	DW 1020h, 2030h, 3040h, 4050h, 5060h
+       5060
+						ORG 000Ah
+ 000A 0000			Sum		DW ?
+ 000C				DtaSeg	ENDS
+
+ 0000				CodSeg	SEGMENT para private 'code'
+
+ 0000				Main	PROC near
+						ASSUME cs:CodSeg, ds:DtaSeg, ss:StkSeg
+
+ 0000  B8 ---- R				mov ax, DtaSeg
+ 0003  8E D8					mov ds, ax
+
+ 0005  BB 0000 R				mov bx, OFFSET Nums
+ 0008  8B 07					mov ax, [bx]
+
+ 000A  B9 0004					mov cx, 4h
+ 000D  43			Accum:	inc bx
+ 000E  43					inc bx
+ 000F  03 07					add ax, [bx]
+ 0011  E2 FA					loop Accum
+
+ 0013  A3 000A R				mov Sum, ax
+
+ 0016  B8 4C00					mov ax, 4C00h
+ 0019  CD 21					int 21h
+
+ 001B				Main	ENDP
+
+ 001B				CodSeg	ENDS
+
+						END Main
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/14/11 00:37:01
+Addition of 5 word-numbers				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CodSeg . . . . . . . . . . . . .	16 Bit	 001B	  Para	  Private 'CODE'	
+DtaSeg . . . . . . . . . . . . .	16 Bit	 000C	  Para	  Private 'DATA'	
+StkSeg . . . . . . . . . . . . .	16 Bit	 0040	  Para	  Stack	  'STACK'	 
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+Main . . . . . . . . . . . . . .	P Near	 0000	  CodSeg	Length= 001B Public
+  Accum  . . . . . . . . . . . .	L Near	 000D	  CodSeg	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+Nums . . . . . . . . . . . . . .	Word	 0000	  DtaSeg	
+Sum  . . . . . . . . . . . . . .	Word	 000A	  DtaSeg	
+
+	   0 Warnings
+	   0 Errors

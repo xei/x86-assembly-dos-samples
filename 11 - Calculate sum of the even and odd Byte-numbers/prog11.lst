@@ -1,0 +1,84 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/25/11 00:18:17
+Calculate sum of the even and odd Byte-numbers		     Page 1 - 1
+
+
+				; Program 01 - Calculate sum of the even and odd Byte-numbers
+        ; Written by Hamidreza Hosseinkhani (hosseinkhani@live.com)
+        ; June, 2011
+						TITLE Calculate sum of the even and odd Byte-numbers
+
+ 0000				StkSeg	SEGMENT para stack 'stack'
+ 0000  0040 [					DB 64 DUP(?)
+        00
+       ]
+ 0040				StkSeg	ENDS
+
+ 0000				DtaSeg	SEGMENT para private 'data'
+ 0000 0A 15 20 2B 36		Nums	DB 10, 21, 32, 43, 54
+ 0005 0000			Evens	DW ?
+ 0007 0000			Odds	DW ?
+ 0009				DtaSeg	ENDS
+
+ 0000				CodSeg	SEGMENT para private 'code'
+
+ 0000				Main	PROC near
+						ASSUME cs:CodSeg, ds:DtaSeg, ss:StkSeg
+ 0000  B8 ---- R				mov ax, DtaSeg
+ 0003  8E D8					mov ds, ax
+
+ 0005  BE 0000 R				mov si, OFFSET Nums
+ 0008  B8 0000					mov ax, 0000h
+ 000B  BA 0000					mov dx, 0000h
+ 000E  B9 0005					mov cx, 5
+ 0011  B7 00					mov bh, 00h
+ 0013  8A 1C			Next:	mov bl, BYTE PTR [si]
+ 0015  80 E3 01					and bl, 01h
+ 0018  74 02					jz Zoj
+ 001A  03 D3					add dx, bx
+ 001C  03 C3			Zoj:	add ax, bx
+ 001E  E2 F3					loop Next
+
+ 0020  A3 0005 R				mov Evens, ax
+ 0023  89 16 0007 R				mov Odds, dx
+
+ 0027  B8 4C00					mov ax, 4C00h
+ 002A  CD 21					int 21h
+ 002C				Main	ENDP
+
+ 002C				CodSeg	ENDS
+
+						END Main
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/25/11 00:18:17
+Calculate sum of the even and odd Byte-numbers		     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CodSeg . . . . . . . . . . . . .	16 Bit	 002C	  Para	  Private 'CODE'	
+DtaSeg . . . . . . . . . . . . .	16 Bit	 0009	  Para	  Private 'DATA'	
+StkSeg . . . . . . . . . . . . .	16 Bit	 0040	  Para	  Stack	  'STACK'	 
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+Main . . . . . . . . . . . . . .	P Near	 0000	  CodSeg	Length= 002C Public
+  Next . . . . . . . . . . . . .	L Near	 0013	  CodSeg	
+  Zoj  . . . . . . . . . . . . .	L Near	 001C	  CodSeg	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+Evens  . . . . . . . . . . . . .	Word	 0005	  DtaSeg	
+Nums . . . . . . . . . . . . . .	Byte	 0000	  DtaSeg	
+Odds . . . . . . . . . . . . . .	Word	 0007	  DtaSeg	
+
+	   0 Warnings
+	   0 Errors

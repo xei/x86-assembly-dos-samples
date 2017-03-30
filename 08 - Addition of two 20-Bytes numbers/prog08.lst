@@ -1,0 +1,109 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/23/11 16:20:09
+Addition of two 20-Bytes numbers				     Page 1 - 1
+
+
+				; Program 01 - Addition of two 20-Bytes numbers
+        ; Written by Hamidreza Hosseinkhani (hosseinkhani@live.com)
+        ; June, 2011
+						TITLE Addition of two 20-Bytes numbers
+
+ 0000				StkSeg	SEGMENT para stack 'stack'
+ 0000  0040 [					DB 64 DUP (?)
+        00
+       ]
+ 0040				StkSeg	ENDS
+
+ 0000				DtaSeg	SEGMENT para private 'data'
+
+ 0000				Num1L	DT 11223344556677889900h
+       11223344556677889900
+ 000A				Num1H	DT 0AABBCCDDEEFF12345678h
+       AABBCCDDEEFF12345678
+						ORG 0020h
+ 0020				Num2L	DT 0FEDCBA9876543210ABCDh
+       FEDCBA9876543210ABCD
+ 002A				Num2H	DT 0ABBACDDCEFFEAFFAACCAh
+       ABBACDDCEFFEAFFAACCA
+						ORG 0050h
+ 0050  0005 [			Sum		DD 5 DUP (?)
+        00000000
+       ]
+
+ 0064				DtaSeg	ENDS
+
+ 0000				CodSeg	SEGMENT para private 'code'
+
+ 0000				Main	PROC near
+						ASSUME cs:CodSeg, ds:DtaSeg, ss:StkSeg
+ 0000  B8 ---- R				mov ax, DtaSeg
+ 0003  8E D8					mov ds, ax
+
+ 0005  BE 0000 R				mov si, OFFSET Num1L
+ 0008  BF 0020 R				mov di, OFFSET Num2L
+ 000B  BB 0050 R				mov bx, OFFSET Sum
+
+ 000E  8B 04					mov ax, WORD PTR [si]
+ 0010  03 05					add ax, WORD PTR [di]
+ 0012  89 07					mov WORD PTR [bx], ax
+
+ 0014  46					inc si
+ 0015  46					inc si
+ 0016  47					inc di
+ 0017  47					inc di
+ 0018  43					inc bx
+ 0019  43					inc bx
+
+ 001A  B9 0009					mov cx, 9
+ 001D  8B 04			Next:	mov ax, WORD PTR [si]
+ 001F  13 05					adc ax, WORD PTR [di]
+ 0021  89 07					mov WORD PTR [bx], ax
+ 0023  46					inc si
+ 0024  46					inc si
+ 0025  47					inc di
+ 0026  47					inc di
+ 0027  43					inc bx
+ 0028  43					inc bx
+ 0029  E2 F2					loop Next
+
+ 002B  B8 4C00					mov ax, 4C00h
+ 002E  CD 21					int 21h
+ 0030				Main	ENDP
+
+ 0030				CodSeg	ENDS
+
+						END Main
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/23/11 16:20:09
+Addition of two 20-Byte numbers				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CodSeg . . . . . . . . . . . . .	16 Bit	 0030	  Para	  Private 'CODE'	
+DtaSeg . . . . . . . . . . . . .	16 Bit	 0064	  Para	  Private 'DATA'	
+StkSeg . . . . . . . . . . . . .	16 Bit	 0040	  Para	  Stack	  'STACK'	 
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+Main . . . . . . . . . . . . . .	P Near	 0000	  CodSeg	Length= 0030 Public
+  Next . . . . . . . . . . . . .	L Near	 001D	  CodSeg	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+Num1H  . . . . . . . . . . . . .	TWord	 000A	  DtaSeg	
+Num1L  . . . . . . . . . . . . .	TWord	 0000	  DtaSeg	
+Num2H  . . . . . . . . . . . . .	TWord	 002A	  DtaSeg	
+Num2L  . . . . . . . . . . . . .	TWord	 0020	  DtaSeg	
+Sum  . . . . . . . . . . . . . .	DWord	 0050	  DtaSeg	
+
+	   0 Warnings
+	   0 Errors

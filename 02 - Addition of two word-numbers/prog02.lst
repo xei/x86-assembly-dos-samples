@@ -1,0 +1,74 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/13/11 19:28:05
+Addition of two word-numbers				     Page 1 - 1
+
+
+				; Program 01 - Addition of two word-numbers
+				; Written by Hamidreza Hosseinkhani (hosseinkhani@live.com)
+				; June, 2011
+						TITLE Addition of two word-numbers
+
+ 0000				StkSeg	SEGMENT para stack 'stack'
+ 0000  0040 [						DB 64 DUP (?)
+        00
+       ]
+ 0040				StkSeg	ENDS
+
+ 0000				DtaSeg	SEGMENT para private 'data'
+ 0000 0EFE			Num1	DW 00EFEh
+ 0002 CDCD			Num2	DW 0CDCDh
+						ORG 000Ah
+ 000A 0000			Sum		DW ?
+ 000C				DtaSeg	ENDS
+
+ 0000				CodSeg	SEGMENT	para private 'code'
+
+ 0000				Main	PROC near
+						ASSUME cs:CodSeg, ds:DtaSeg, ss:StkSeg
+
+ 0000  B8 ---- R				mov ax, DtaSeg
+ 0003  8E D8					mov ds, ax
+
+ 0005  A1 0000 R				mov ax, Num1
+ 0008  03 06 0002 R				add ax, Num2
+ 000C  A3 000A R				mov Sum, ax
+
+ 000F  B8 4C00					mov ax, 4C00h
+ 0012  CD 21					int 21h
+
+ 0014				Main	ENDP
+
+ 0014				CodSeg	ENDS
+
+						END Main
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/13/11 19:28:05
+Addition of two word-numbers				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CodSeg . . . . . . . . . . . . .	16 Bit	 0014	  Para	  Private 'CODE'	
+DtaSeg . . . . . . . . . . . . .	16 Bit	 000C	  Para	  Private 'DATA'	
+StkSeg . . . . . . . . . . . . .	16 Bit	 0040	  Para	  Stack	  'STACK'	 
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+Main . . . . . . . . . . . . . .	P Near	 0000	  CodSeg	Length= 0014 Public
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+Num1 . . . . . . . . . . . . . .	Word	 0000	  DtaSeg	
+Num2 . . . . . . . . . . . . . .	Word	 0002	  DtaSeg	
+Sum  . . . . . . . . . . . . . .	Word	 000A	  DtaSeg	
+
+	   0 Warnings
+	   0 Errors

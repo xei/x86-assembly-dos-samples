@@ -1,0 +1,16 @@
+
+ Start  Stop   Length Name                   Class
+ 00000H 00033H 00034H _TEXT                  CODE
+ 00034H 0004BH 00018H _DATA                  DATA
+ 00050H 000CFH 00080H STACK                  STACK
+
+ Origin   Group
+ 0003:0   DGROUP
+
+  Address         Publics by Name
+
+
+  Address         Publics by Value
+
+
+Program entry point at 0000:0000

@@ -1,0 +1,90 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/24/11 15:16:17
+Find Min/Max of 10 Decimal Byte-Numbers			     Page 1 - 1
+
+
+				; Program 01 - Find Min/Max of 10 Unsigned Decimal Byte-Numbers
+        ; Written by Hamidreza Hosseinkhani (hosseinkhani@live.com)
+        ; June, 2011
+						TITLE Find Min/Max of 10 Decimal Byte-Numbers
+
+ 0000				StkSeg	SEGMENT para stack 'stack'
+ 0000  0040 [					DB 64 DUP (?)
+        00
+       ]
+ 0040				StkSeg	ENDS
+
+ 0000				DtaSeg	SEGMENT para private 'data'
+ 0000 17 0C 22 2D 38 43		Nums	DB 23, 12, 34, 45, 56, 67, 78, 89, 100, 50
+       4E 59 64 32
+						ORG 0010h
+ 0010 00			Min		DB ?
+ 0011 00			Max		DB ?
+ 0012				DtaSeg	ENDS
+
+ 0000				CodSeg	SEGMENT para private 'code'
+
+ 0000				Main	PROC near
+						ASSUME cs:CodSeg, ds:DtaSeg, ss:StkSeg
+ 0000  B8 ---- R				mov ax, DtaSeg
+ 0003  8E D8					mov ds, ax
+
+ 0005  A0 0000 R				mov al, Nums	; Minimum
+ 0008  8A 26 0000 R				mov ah, Nums	; Maximum
+ 000C  BB 0001 R				mov bx, OFFSET Nums+1
+ 000F  B9 0009					mov cx, 9
+ 0012  8A 17			Start:	mov dl, [bx]	; 'dl' is temp register for speed up by replace
+										; register indirect with register addressing mode.
+ 0014  38 D0					cmp al, dl
+ 0016  76 02					jbe Pass1
+ 0018  8A C2					mov al, dl
+ 001A  38 D4			Pass1:	cmp ah, dl
+ 001C  73 02					jae Pass2
+ 001E  8A E2					mov ah, dl
+ 0020  43			Pass2:	inc bx
+ 0021  E2 EF					loop Start
+
+ 0023  A2 0010 R				mov Min, al
+ 0026  88 26 0011 R				mov Max, ah
+
+ 002A  B8 4C00					mov ax, 4C00h
+ 002D  CD 21					int 21h
+ 002F				Main	ENDP
+
+ 002F				CodSeg	ENDS
+
+						END Main
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/24/11 15:16:17
+Find Min/Max of 10 Decimal Byte-Numbers			     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CodSeg . . . . . . . . . . . . .	16 Bit	 002F	  Para	  Private 'CODE'	
+DtaSeg . . . . . . . . . . . . .	16 Bit	 0012	  Para	  Private 'DATA'	
+StkSeg . . . . . . . . . . . . .	16 Bit	 0040	  Para	  Stack	  'STACK'	 
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+Main . . . . . . . . . . . . . .	P Near	 0000	  CodSeg	Length= 002F Public
+  Start  . . . . . . . . . . . .	L Near	 0012	  CodSeg	
+  Pass1  . . . . . . . . . . . .	L Near	 001A	  CodSeg	
+  Pass2  . . . . . . . . . . . .	L Near	 0020	  CodSeg	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+Max  . . . . . . . . . . . . . .	Byte	 0011	  DtaSeg	
+Min  . . . . . . . . . . . . . .	Byte	 0010	  DtaSeg	
+Nums . . . . . . . . . . . . . .	Byte	 0000	  DtaSeg	
+
+	   0 Warnings
+	   0 Errors

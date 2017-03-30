@@ -1,0 +1,76 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/24/11 10:12:36
+Absolute of two Byte-numbers				     Page 1 - 1
+
+
+				; Program 01 - Absolute of two Byte-numbers
+				; Written by Hamidreza Hosseinkhani (hosseinkhani@live.com)
+				; June, 2011
+						TITLE Absolute of two Byte-numbers
+
+ 0000				StkSeg	SEGMENT para stack 'stack'
+ 0000  0040 [					DB 64 DUP (?)
+        00
+       ]
+ 0040				StkSeg	ENDS
+
+ 0000				DtaSeg	SEGMENT para private 'data'
+ 0000 23			Num1	DB 23h
+ 0001 56			Num2	DB 56h
+						ORG 0010h
+ 0010 00			Abs		DB ?
+ 0011				DtaSeg	ENDS
+
+ 0000				CodSeg	SEGMENT para private 'code'
+
+ 0000				Main	PROC near
+						ASSUME cs:CodSeg, ds:DtaSeg, ss:StkSeg
+ 0000  B8 ---- R				mov ax, DtaSeg
+ 0003  8E D8					mov ds, ax
+
+ 0005  A0 0000 R				mov al, Num1
+ 0008  2A 06 0001 R				sub al, Num2
+ 000C  73 04					jnc Bypass
+ 000E  F6 D0					not al
+ 0010  FE C0					inc al
+ 0012  A2 0010 R		Bypass:	mov Abs, al
+
+ 0015  B8 4C00					mov ax, 4C00h
+ 0018  CD 21					int 21h
+ 001A				Main	ENDP
+
+ 001A				CodSeg	ENDS
+
+						END Main
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/24/11 10:12:36
+Absolute of two Byte-numbers				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CodSeg . . . . . . . . . . . . .	16 Bit	 001A	  Para	  Private 'CODE'	
+DtaSeg . . . . . . . . . . . . .	16 Bit	 0011	  Para	  Private 'DATA'	
+StkSeg . . . . . . . . . . . . .	16 Bit	 0040	  Para	  Stack	  'STACK'	 
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+Main . . . . . . . . . . . . . .	P Near	 0000	  CodSeg	Length= 001A Public
+  Bypass . . . . . . . . . . . .	L Near	 0012	  CodSeg	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+Abs  . . . . . . . . . . . . . .	Byte	 0010	  DtaSeg	
+Num1 . . . . . . . . . . . . . .	Byte	 0000	  DtaSeg	
+Num2 . . . . . . . . . . . . . .	Byte	 0001	  DtaSeg	
+
+	   0 Warnings
+	   0 Errors

@@ -1,0 +1,84 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/14/11 01:33:09
+Copy 6 Bytes from DS:0010h to DS: 0028h			     Page 1 - 1
+
+
+				; Program 01 - Copy 6 Bytes from DS:0010h to DS: 0028h
+				; Written by Hamidreza Hosseinkhani (hosseinkhani@live.com)
+				; June, 2011
+						TITLE Copy 6 Bytes from DS:0010h to DS: 0028h
+
+ 0000				StkSeg	SEGMENT para stack 'stack'
+ 0000  0040 [					DB 64 DUP (?)
+        00
+       ]
+ 0040				StkSeg	ENDS
+
+ 0000				DtaSeg	SEGMENT para private 'data'
+						ORG 0010h
+ 0010 0A 14 1E 28 32 3C		Source	DB 10, 20, 30, 40, 50, 60
+						ORG 0028h
+ 0028  0003 [			Dest	DW 3 DUP (?)
+        0000
+       ]
+ 002E				DtaSeg	ENDS
+
+ 0000				CodSeg	SEGMENT para private 'code'
+						
+ 0000				Main	PROC near
+						ASSUME cs:CodSeg, ds:DtaSeg, ss:StkSeg
+
+ 0000  B8 ---- R				mov ax, DtaSeg
+ 0003  8E D8					mov ds, ax
+
+ 0005  BE 0010 R				mov si, OFFSET Source
+ 0008  BF 0028 R				mov di, OFFSET Dest
+
+ 000B  B9 0003					mov cx, 3h
+ 000E  8B 04			Copy:	mov WORD PTR ax, [si]
+ 0010  89 05					mov [di], ax
+ 0012  46					inc si
+ 0013  46					inc si
+ 0014  47					inc di
+ 0015  47					inc di
+ 0016  E2 F6					loop Copy
+
+ 0018  B8 4C00					mov ax, 4C00h
+ 001B  CD 21					int 21h
+
+ 001D				Main	ENDP
+
+ 001D				CodSeg	ENDS
+						
+						END Main
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/14/11 01:33:09
+Copy 6Byte from DS:0010h to DS: 0028h			     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CodSeg . . . . . . . . . . . . .	16 Bit	 001D	  Para	  Private 'CODE'	
+DtaSeg . . . . . . . . . . . . .	16 Bit	 002E	  Para	  Private 'DATA'	
+StkSeg . . . . . . . . . . . . .	16 Bit	 0040	  Para	  Stack	  'STACK'	 
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+Main . . . . . . . . . . . . . .	P Near	 0000	  CodSeg	Length= 001D Public
+  Copy . . . . . . . . . . . . .	L Near	 000E	  CodSeg	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+Dest . . . . . . . . . . . . . .	Word	 0028	  DtaSeg	
+Source . . . . . . . . . . . . .	Byte	 0010	  DtaSeg	
+
+	   0 Warnings
+	   0 Errors

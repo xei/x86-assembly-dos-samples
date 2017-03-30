@@ -1,0 +1,81 @@
+	Microsoft (R) Macro Assembler Version 6.15.8803		    06/13/11 22:54:22
+addition of 5 byte-numbers				     Page 1 - 1
+
+
+				; Program 01 - Addition of five byte-numbers
+				; Written by Hamidreza Hosseinkhani (hosseinkhani@live.com)
+				; June, 2011
+						TITLE addition of 5 byte-numbers
+
+ 0000				StkSeg	SEGMENT para stack 'stack'
+ 0000  0040 [					DB 64 DUP (?)
+        00
+       ]
+ 0040				StkSeg	ENDS
+
+ 0000				DtaSeg	SEGMENT para private 'data'
+ 0000 10 20 30 40 50		Nums	DB 10h, 20h, 30h, 40h, 50h
+						ORG 000Ah
+ 000A 0000			Sum		DW ?
+ 000C				DtaSeg	ENDS
+
+ 0000				CodSeg	SEGMENT para private 'code'
+
+ 0000				Main	PROC near
+						ASSUME cs:CodSeg, ds:DtaSeg, ss:StkSeg
+
+ 0000  B8 ---- R				mov ax, DtaSeg
+ 0003  8E D8					mov ds, ax
+
+ 0005  BB 0000 R				mov bx, OFFSET Nums
+
+ 0008  B4 00					mov ah, 00h
+ 000A  8A 07					mov al, [bx]
+
+ 000C  B9 0004					mov cx, 4h
+ 000F  43			Accum:	inc bx
+ 0010  B6 00					mov dh, 00h
+ 0012  8A 17					mov dl, [bx]
+ 0014  03 C2					add ax, dx
+ 0016  E2 F7					loop Accum
+
+ 0018  A3 000A R				mov Sum, ax
+
+ 001B  B8 4C00					mov ax, 4C00h
+ 001E  CD 21					int 21h
+
+ 0020				Main	ENDP
+ 0020				CodSeg	ENDS
+						END	Main
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/13/11 22:54:22
+addition of 5 byte-numbers				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CodSeg . . . . . . . . . . . . .	16 Bit	 0020	  Para	  Private 'CODE'	
+DtaSeg . . . . . . . . . . . . .	16 Bit	 000C	  Para	  Private 'DATA'	
+StkSeg . . . . . . . . . . . . .	16 Bit	 0040	  Para	  Stack	  'STACK'	 
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+Main . . . . . . . . . . . . . .	P Near	 0000	  CodSeg	Length= 0020 Public
+  Accum  . . . . . . . . . . . .	L Near	 000F	  CodSeg	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+Nums . . . . . . . . . . . . . .	Byte	 0000	  DtaSeg	
+Sum  . . . . . . . . . . . . . .	Word	 000A	  DtaSeg	
+
+	   0 Warnings
+	   0 Errors

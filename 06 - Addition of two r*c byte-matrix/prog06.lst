@@ -1,0 +1,100 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/14/11 13:35:18
+Addition of two r*c byte-matrix				     Page 1 - 1
+
+
+				; Program 01 - Addition of two r*c byte-matrix
+        ; Written by Hamidreza Hosseinkhani (hosseinkhani@live.com)
+        ; June, 2011
+						TITLE Addition of two r*c byte-matrix
+
+ 0000				StkSeg	SEGMENT para stack 'stack'
+ 0000  0040 [					DB 64 DUP (?)
+        00
+       ]
+ 0040				StkSeg	ENDS
+
+ 0000				DtaSeg	SEGMENT para private 'data'
+ 0000 02			m		DB 2
+ 0001 05			n		DB 5
+ 0002 11 22 33 44 55		Mat1	DB 11h, 22h, 33h, 44h, 55h
+ 0007  66 77 88 99 AA				DB 66h, 77h, 88h, 99h, 0AAh
+						ORG 0014h
+ 0014 AA 99 88 77 66		Mat2	DB 0AAh, 99h, 88h, 77h, 66h
+ 0019  55 44 33 22 11				DB 55h, 44h, 33h, 22h, 11h
+						ORG 00020h
+ 0020  0005 [			Sum		DB 5 DUP (?)
+        00
+       ]
+ 0025  0005 [					DB 5 DUP (?)
+        00
+       ]
+ 002A				DtaSeg	ENDS
+
+ 0000				CodSeg	SEGMENT para private 'code'
+
+ 0000				Main	PROC near
+						ASSUME cs:CodSeg, ds:DtaSeg, ss:StkSeg
+
+ 0000  B8 ---- R				mov ax, DtaSeg
+ 0003  8E D8					mov ds, ax
+
+ 0005  BE 0002 R				mov si, OFFSET Mat1
+ 0008  BF 0014 R				mov di, OFFSET Mat2
+ 000B  BB 0020 R				mov bx, OFFSET Sum
+
+ 000E  8A 0E 0000 R				mov cl, m
+ 0012  8A 2E 0001 R		Row:	mov ch, n
+ 0016  8A 04			Col:	mov al, [si]
+ 0018  02 05					add al, [di]
+ 001A  88 07					mov [bx], al
+ 001C  46					inc si
+ 001D  47					inc di
+ 001E  43					inc bx
+ 001F  FE CD					dec ch
+ 0021  75 F3					jnz Col
+ 0023  E2 ED					loop Row
+
+ 0025  B8 4C00					mov ax, 4C00h
+ 0028  CD 21					int 21h
+
+ 002A				Main	ENDP
+
+ 002A				CodSeg	ENDS
+
+						END Main
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/14/11 13:35:18
+Addition of two r*c byte-matrix				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CodSeg . . . . . . . . . . . . .	16 Bit	 002A	  Para	  Private 'CODE'	
+DtaSeg . . . . . . . . . . . . .	16 Bit	 002A	  Para	  Private 'DATA'	
+StkSeg . . . . . . . . . . . . .	16 Bit	 0040	  Para	  Stack	  'STACK'	 
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+Main . . . . . . . . . . . . . .	P Near	 0000	  CodSeg	Length= 002A Public
+  Row  . . . . . . . . . . . . .	L Near	 0012	  CodSeg	
+  Col  . . . . . . . . . . . . .	L Near	 0016	  CodSeg	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+Mat1 . . . . . . . . . . . . . .	Byte	 0002	  DtaSeg	
+Mat2 . . . . . . . . . . . . . .	Byte	 0014	  DtaSeg	
+Sum  . . . . . . . . . . . . . .	Byte	 0020	  DtaSeg	
+m  . . . . . . . . . . . . . . .	Byte	 0000	  DtaSeg	
+n  . . . . . . . . . . . . . . .	Byte	 0001	  DtaSeg	
+
+	   0 Warnings
+	   0 Errors

@@ -1,0 +1,7 @@
+
+ Start  Stop   Length Name                   Class
+ 00000H 0003FH 00040H STKSEG                 STACK
+ 00040H 000A3H 00064H DTASEG                 DATA
+ 000B0H 000DFH 00030H CODSEG                 CODE
+
+Program entry point at 000B:0000

@@ -1,0 +1,70 @@
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/13/11 18:26:31
+Addition of two byte-numbers				     Page 1 - 1
+
+
+				; Program 01 - Addition of two byte-numbers
+				; Written by Hamidreza Hosseinkhani (hosseinkhani@live.com)
+				; June, 2011
+						TITLE Addition of two byte-numbers
+
+						.MODEL small
+
+						.STACK 40h
+
+ 0000						.DATA
+ 0000 FE			Num1	DB 0FEh
+ 0001 ED			Num2	DB 0EDh
+						ORG 000Ah
+ 000A 0000			Sum		DW ?
+
+ 0000						.CODE
+ 0000  B8 ---- R		Start:	mov ax, @DATA
+ 0003  8E D8					mov ds, ax
+
+ 0005  B4 00					mov ah, 00h
+ 0007  A0 0000 R				mov al, Num1
+ 000A  B7 00					mov bh, 00h
+ 000C  8A 1E 0001 R				mov bl, Num2
+ 0010  03 C3					add ax, bx
+ 0012  A3 000A R				mov Sum, ax
+
+ 0015  B8 4C00					mov ax, 4C00h
+ 0018  CD 21					int 21h
+
+						END Start
+Microsoft (R) Macro Assembler Version 6.15.8803		    06/13/11 18:26:31
+Addition of two byte-numbers				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+DGROUP . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	16 Bit	 000C	  Word	  Public  'DATA'	
+STACK  . . . . . . . . . . . . .	16 Bit	 0040	  Para	  Stack	  'STACK'	 
+_TEXT  . . . . . . . . . . . . .	16 Bit	 001A	  Word	  Public  'CODE'	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 0000h	 
+@DataSize  . . . . . . . . . . .	Number	 0000h	 
+@Interface . . . . . . . . . . .	Number	 0000h	 
+@Model . . . . . . . . . . . . .	Number	 0002h	 
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 DGROUP
+@fardata?  . . . . . . . . . . .	Text   	 FAR_BSS
+@fardata . . . . . . . . . . . .	Text   	 FAR_DATA
+@stack . . . . . . . . . . . . .	Text   	 DGROUP
+Num1 . . . . . . . . . . . . . .	Byte	 0000	  _DATA	
+Num2 . . . . . . . . . . . . . .	Byte	 0001	  _DATA	
+Start  . . . . . . . . . . . . .	L Near	 0000	  _TEXT	
+Sum  . . . . . . . . . . . . . .	Word	 000A	  _DATA	
+
+	   0 Warnings
+	   0 Errors
